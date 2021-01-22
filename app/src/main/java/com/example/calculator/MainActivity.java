@@ -3,6 +3,7 @@ package com.example.calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import static com.example.calculator.Calculate.subtract;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final int Y_OFFSET = 208;
     private TextView mInputTextView;
     private TextView mResultTextView;
     private Button mDecimalButton;
@@ -143,9 +145,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         double a = (double) arguments.get(0);
         double b = (double) arguments.get(arguments.size() - 1);
         double result = 0;
-        Toast.makeText(getApplicationContext(), "First argument : " + a + "\n" +
+        Toast toast = Toast.makeText(getApplicationContext(), "First argument : " + a + "\n" +
                 "Second argument : " + b + "\n" +
-                "Operator : " + mOperate, Toast.LENGTH_LONG).show();
+                "Operator : " + mOperate, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, Y_OFFSET);
+        toast.show();
 
         if (mOperate == "+") {
             result = add(a, b);

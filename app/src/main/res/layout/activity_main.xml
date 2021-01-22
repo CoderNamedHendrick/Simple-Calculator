@@ -11,11 +11,12 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
         android:text="TextView"
         android:textAlignment="viewEnd"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -224,22 +225,21 @@
         android:id="@+id/equalsBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="116dp"
         android:text="="
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/delBtn"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/delBtn" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/delBtn"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:text="DEL"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout2"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
