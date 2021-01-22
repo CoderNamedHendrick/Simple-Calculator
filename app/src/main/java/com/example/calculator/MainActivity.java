@@ -11,6 +11,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.calculator.Calculate.add;
+import static com.example.calculator.Calculate.divide;
+import static com.example.calculator.Calculate.multiply;
+import static com.example.calculator.Calculate.subtract;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mInputTextView;
@@ -135,14 +140,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void doCalculation(List<Integer> arguments) {
-        int a = arguments.get(0);
-        int b = arguments.get(arguments.size() - 1);
+        double a = (double) arguments.get(0);
+        double b = (double) arguments.get(arguments.size() - 1);
+        double result = 0;
         Toast.makeText(getApplicationContext(), "First argument : " + a + "\n" +
                 "Second argument : " + b + "\n" +
                 "Operator : " + mOperate, Toast.LENGTH_LONG).show();
 
-        if (mOperate == "+")
-            mResultTextView.setText(Calculate.add(a, b));
+        if (mOperate == "+") {
+            result = add(a, b);
+        } else if (mOperate == "-") {
+            result = subtract(a, b);
+        } else if (mOperate == "x") {
+            result = multiply(a, b);
+        }
+        else if (mOperate == "/") {
+            result = divide(a, b);
+        }
+
+        mResultTextView.setText(Double.toString(result));
     }
 
     private void deleteInput() {
