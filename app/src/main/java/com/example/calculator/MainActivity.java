@@ -136,31 +136,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if (v == mDivideButton)
             input("/");
         else if (v == mEqualsButton)
-            doCalculation(returnArguments());
+            doCalculation();
         else if (v == mDeleteButton)
             deleteInput();
     }
 
-    private void doCalculation(List<Integer> arguments) {
-        double a = (double) arguments.get(0);
-        double b = (double) arguments.get(arguments.size() - 1);
+    private void doCalculation() {
         double result = 0;
-        Toast toast = Toast.makeText(getApplicationContext(), "First argument : " + a + "\n" +
-                "Second argument : " + b + "\n" +
-                "Operator : " + mOperate, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, Y_OFFSET);
-        toast.show();
+        String input = mInputTextView.getText().toString() + " ";
 
-        if (mOperate == "+") {
-            result = add(a, b);
-        } else if (mOperate == "-") {
-            result = subtract(a, b);
-        } else if (mOperate == "x") {
-            result = multiply(a, b);
-        }
-        else if (mOperate == "/") {
-            result = divide(a, b);
-        }
 
         mResultTextView.setText(Double.toString(result));
     }
@@ -174,23 +158,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void input(String s) {
         String original = mInputTextView.getText().toString();
         mInputTextView.setText(original+s);
-    }
-
-    private List<Integer> returnArguments(){
-        String original = mInputTextView.getText().toString();
-        String firstArgument = null; String secondArgument = null;
-        List<Integer> arguments = new ArrayList<>();
-        String[] operators = {"+", "-", "x", "/"};
-
-        for (String operator: operators){
-            if (original.contains(operator)){
-                mOperate = operator;
-                firstArgument = original.substring(0, original.indexOf(operator));
-                secondArgument = original.substring(original.indexOf(operator)+1);
-            }
-        }
-        arguments.add(Integer.parseInt(firstArgument));
-        arguments.add(Integer.parseInt(secondArgument));
-        return arguments;
     }
 }
