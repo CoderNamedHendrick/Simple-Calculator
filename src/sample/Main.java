@@ -71,6 +71,10 @@ public class Main{
 
     }
 
+    public static void PerformCalculations(Integer[] arguments, Stack<Character> operands){
+
+    }
+
     public static void getArguments(String input, String operand){
         try {
             arguments.add(Integer.parseInt(input.substring(0, input.indexOf(operand))));
@@ -78,9 +82,6 @@ public class Main{
             String worker = input.substring(0, input.indexOf(operand));
             if (worker.contains("-")){
                 getArguments(worker, "-");
-//                arguments.add(0, Integer.parseInt(worker.substring(0, worker.indexOf("-"))));
-//                arguments.add(1, Integer.parseInt(worker.substring(worker.indexOf("-")+1)));
-//                operands.add(0, '-');
             }else if (worker.contains("+")){
                 getArguments(worker, "+");
             } else if (worker.contains("*")){
