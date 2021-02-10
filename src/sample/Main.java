@@ -1,20 +1,18 @@
 package sample;
 
-import java.lang.reflect.Type;
 import java.util.*;
 
 public class Main{
 
     private static int result;
     private static Integer firstArgs;
-    private static String restOfArgs;
-    private static char operand;
+    private static String input;
     private static Integer secondArgs;
     private static List<Integer> arguments;
     private static Stack<Character> operands;
 
     public static void main(String[] args) {
-        restOfArgs = new String("75-5+16");
+        input = new String("32*2+55+77");
         arguments = new ArrayList<>();
         operands = new Stack<>();
         String[] operandss = {"+", "-", "*", "/"};
@@ -24,26 +22,26 @@ public class Main{
 
 
         String operator = operators.get(rand.nextInt(operators.size()));
-        System.out.println(operator);
 
         getArguments(operators, rand, operator);
 
 
-        System.out.println(arguments.toString());
-        System.out.println(operands.toString());
-
         final int times = operands.size();
-        for (int i=0; i < times; i++){
+        calculate(times);
+    }
+
+    private static int calculate(int times) {
+        for (int i = 0; i < times; i++){
             if (operands.contains('/')){
                 firstArgs = arguments.get(operands.indexOf('/'));
                 secondArgs = arguments.get(operands.indexOf('/') + 1);
-                result = firstArgs+secondArgs;
+                result = firstArgs/secondArgs;
                 arguments.set(operands.indexOf('/'), result); arguments.remove(operands.indexOf('/') + 1);
                 operands.remove(operands.indexOf('/'));
-            } else if (operands.firstElement() == '*'){
+            } else if (operands.contains('*')){
                 firstArgs = arguments.get(operands.indexOf('*'));
                 secondArgs = arguments.get(operands.indexOf('*') + 1);
-                result = firstArgs+secondArgs;
+                result = firstArgs*secondArgs;
                 arguments.set(operands.indexOf('*'), result); arguments.remove(operands.indexOf('*') + 1);
                 operands.remove(operands.indexOf('*'));
             } else if (operands.firstElement() == '+'){
@@ -55,35 +53,27 @@ public class Main{
             } else if (operands.firstElement() == '-'){
                 firstArgs = arguments.get(operands.indexOf('-'));
                 secondArgs = arguments.get(operands.indexOf('-') + 1);
-                result = firstArgs+secondArgs;
+                result = firstArgs-secondArgs;
                 arguments.set(operands.indexOf('-'), result); arguments.remove(operands.indexOf('-') + 1);
                 operands.remove(operands.indexOf('-'));
             }
        }
-        System.out.println(arguments.toString());
-        System.out.println(operands.toString());
-//        for (int adds = 1; adds<ch.length; adds++){
-//            result += Integer.parseInt(ch[adds]);
-//        }
-//        for (int i=0; i<length; i++){
-//            s = spliter(s);
-//        }
 
-
+        return result;
     }
 
     private static void getArguments(List<String> operators, Random rand, String operator) {
-        if (restOfArgs.contains(operator)) {
+        if (input.contains(operator)) {
         }
         else {
             operators.remove(operator);
             operator = operators.get(rand.nextInt(operators.size()));
-            if (restOfArgs.contains(operator)) {
+            if (input.contains(operator)) {
             }
             else {
                 operators.remove(operator);
                 operator = operators.get(rand.nextInt(operators.size()));
-                if (restOfArgs.contains(operator)) {
+                if (input.contains(operator)) {
                 }
                 else {
                     operators.remove(operator);
@@ -91,7 +81,7 @@ public class Main{
                 }
             }
         }
-        getArguments(restOfArgs, operator);
+        getArguments(input, operator);
     }
 
     private static void getArguments(String input, String operand){
