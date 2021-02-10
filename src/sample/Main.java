@@ -14,7 +14,7 @@ public class Main{
     private static Stack<Character> operands;
 
     public static void main(String[] args) {
-        restOfArgs = new String("75+5");
+        restOfArgs = new String("75-5+16");
         arguments = new ArrayList<>();
         operands = new Stack<>();
         String[] operandss = {"+", "-", "*", "/"};
@@ -34,30 +34,30 @@ public class Main{
 
         final int times = operands.size();
         for (int i=0; i < times; i++){
-            if (operands.firstElement() == '+'){
-                firstArgs = arguments.get(0);
-                secondArgs = arguments.get(1);
+            if (operands.contains('/')){
+                firstArgs = arguments.get(operands.indexOf('/'));
+                secondArgs = arguments.get(operands.indexOf('/') + 1);
                 result = firstArgs+secondArgs;
-                operands.remove(operands.firstElement());
-                arguments.set(0, result); arguments.remove(1);
-            } else if (operands.firstElement() == '-'){
-                firstArgs = arguments.get(0);
-                secondArgs = arguments.get(1);
-                result = firstArgs - secondArgs;
-                operands.remove(operands.firstElement());
-                arguments.set(0, result); arguments.remove(1);
+                arguments.set(operands.indexOf('/'), result); arguments.remove(operands.indexOf('/') + 1);
+                operands.remove(operands.indexOf('/'));
             } else if (operands.firstElement() == '*'){
-                firstArgs = arguments.get(0);
-                secondArgs = arguments.get(1);
-                result = firstArgs * secondArgs;
-                operands.remove(operands.firstElement());
-                arguments.set(0, result); arguments.remove(1);
-            } else if (operands.firstElement() == '/'){
-                firstArgs = arguments.get(0);
-                secondArgs = arguments.get(1);
-                result = firstArgs / secondArgs;
-                operands.remove(operands.firstElement());
-                arguments.set(0, result); arguments.remove(1);
+                firstArgs = arguments.get(operands.indexOf('*'));
+                secondArgs = arguments.get(operands.indexOf('*') + 1);
+                result = firstArgs+secondArgs;
+                arguments.set(operands.indexOf('*'), result); arguments.remove(operands.indexOf('*') + 1);
+                operands.remove(operands.indexOf('*'));
+            } else if (operands.firstElement() == '+'){
+                firstArgs = arguments.get(operands.indexOf('+'));
+                secondArgs = arguments.get(operands.indexOf('+') + 1);
+                result = firstArgs+secondArgs;
+                arguments.set(operands.indexOf('+'), result); arguments.remove(operands.indexOf('+') + 1);
+                operands.remove(operands.indexOf('+'));
+            } else if (operands.firstElement() == '-'){
+                firstArgs = arguments.get(operands.indexOf('-'));
+                secondArgs = arguments.get(operands.indexOf('-') + 1);
+                result = firstArgs+secondArgs;
+                arguments.set(operands.indexOf('-'), result); arguments.remove(operands.indexOf('-') + 1);
+                operands.remove(operands.indexOf('-'));
             }
        }
         System.out.println(arguments.toString());
