@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -127,8 +128,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             input("8");
         else if (v == mNineButton)
             input("9");
-        else if (v == mAddButton)
+        else if (v == mAddButton) {
             input("+");
+            mResultTextView.setText(getInputString()
+                    .substring(0, getInputString().indexOf("+")));
+        }
         else if (v == mSubButton)
             input("-");
         else if (v == mMultiplyButton)
@@ -139,6 +143,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             doCalculation();
         else if (v == mDeleteButton)
             deleteInput();
+    }
+
+    private String getInputString() {
+        return mInputTextView.getText().toString();
     }
 
     private void doCalculation() {
@@ -159,4 +167,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String original = mInputTextView.getText().toString();
         mInputTextView.setText(original+s);
     }
+
 }
