@@ -83,7 +83,8 @@ public class StringInputToIntegerOutputParser {
         String initialExpression = input.substring(0, input.indexOf(operand));
         try {
             arguments.add(Integer.parseInt(initialExpression));
-        }catch (NumberFormatException e){
+        }
+        catch (NumberFormatException e){
             if (initialExpression.contains("-")){
                 getArguments(initialExpression, "-");
             }else if (initialExpression.contains("+")){
@@ -99,7 +100,8 @@ public class StringInputToIntegerOutputParser {
         try{
             Integer.parseInt(input);
             arguments.add(Integer.parseInt(input));
-        } catch (NumberFormatException e){
+        }
+        catch (NumberFormatException e){
             if (input.contains("-")){
                 getArguments(input, "-");
             }else if (input.contains("+")){
