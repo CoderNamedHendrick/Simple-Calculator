@@ -1,10 +1,7 @@
 package sample;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Stack;
+import java.util.*;
 
 public class Main{
 
@@ -17,50 +14,74 @@ public class Main{
     private static Stack<Character> operands;
 
     public static void main(String[] args) {
-        restOfArgs = new String("75-33*23");
+        restOfArgs = new String("75+5");
         int length = restOfArgs.split("[-+*/]").length;
         arguments = new ArrayList<>();
         operands = new Stack<>();
-        String[] operators = {"+", "-", "*", "/"};
+        String[] operandss = {"+", "-", "*", "/"};
+        List<String> operators = new ArrayList<>();
+        operators.addAll(Arrays.asList(operandss));
         Random rand = new Random();
 
 
-        getArguments(restOfArgs, operators[rand.nextInt(operators.length)]);
+        String operator = operators.get(rand.nextInt(operators.size()));
+        System.out.println(operator);
+
+        if (restOfArgs.contains(operator)) {
+        }
+        else {
+            operators.remove(operator);
+            operator = operators.get(rand.nextInt(operators.size()));
+            if (restOfArgs.contains(operator)) {
+            }
+            else {
+                operators.remove(operator);
+                operator = operators.get(rand.nextInt(operators.size()));
+                if (restOfArgs.contains(operator)) {
+                }
+                else {
+                    operators.remove(operator);
+                    operator = operators.get(rand.nextInt(operators.size()));
+                    System.out.println(operator);
+                }
+            }
+        }
+        getArguments(restOfArgs, operator);
 
 
         System.out.println(arguments.toString());
         System.out.println(operands.toString());
 
-//        final int times = operands.size();
-//        for (int i=0; i < times; i++){
-//            if (operands.firstElement() == '+'){
-//                firstArgs = arguments.get(0);
-//                secondArgs = arguments.get(1);
-//                result = firstArgs+secondArgs;
-//                operands.remove(operands.firstElement());
-//                arguments.set(0, result); arguments.remove(1);
-//            } else if (operands.firstElement() == '-'){
-//                firstArgs = arguments.get(0);
-//                secondArgs = arguments.get(1);
-//                result = firstArgs - secondArgs;
-//                operands.remove(operands.firstElement());
-//                arguments.set(0, result); arguments.remove(1);
-//            } else if (operands.firstElement() == '*'){
-//                firstArgs = arguments.get(0);
-//                secondArgs = arguments.get(1);
-//                result = firstArgs * secondArgs;
-//                operands.remove(operands.firstElement());
-//                arguments.set(0, result); arguments.remove(1);
-//            } else if (operands.firstElement() == '/'){
-//                firstArgs = arguments.get(0);
-//                secondArgs = arguments.get(1);
-//                result = firstArgs / secondArgs;
-//                operands.remove(operands.firstElement());
-//                arguments.set(0, result); arguments.remove(1);
-//            }
-//        }
-//        System.out.println(arguments.toString());
-//        System.out.println(operands.toString());
+        final int times = operands.size();
+        for (int i=0; i < times; i++){
+            if (operands.firstElement() == '+'){
+                firstArgs = arguments.get(0);
+                secondArgs = arguments.get(1);
+                result = firstArgs+secondArgs;
+                operands.remove(operands.firstElement());
+                arguments.set(0, result); arguments.remove(1);
+            } else if (operands.firstElement() == '-'){
+                firstArgs = arguments.get(0);
+                secondArgs = arguments.get(1);
+                result = firstArgs - secondArgs;
+                operands.remove(operands.firstElement());
+                arguments.set(0, result); arguments.remove(1);
+            } else if (operands.firstElement() == '*'){
+                firstArgs = arguments.get(0);
+                secondArgs = arguments.get(1);
+                result = firstArgs * secondArgs;
+                operands.remove(operands.firstElement());
+                arguments.set(0, result); arguments.remove(1);
+            } else if (operands.firstElement() == '/'){
+                firstArgs = arguments.get(0);
+                secondArgs = arguments.get(1);
+                result = firstArgs / secondArgs;
+                operands.remove(operands.firstElement());
+                arguments.set(0, result); arguments.remove(1);
+            }
+       }
+        System.out.println(arguments.toString());
+        System.out.println(operands.toString());
 //        for (int adds = 1; adds<ch.length; adds++){
 //            result += Integer.parseInt(ch[adds]);
 //        }
