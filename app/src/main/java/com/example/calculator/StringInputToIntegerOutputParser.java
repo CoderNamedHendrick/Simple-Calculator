@@ -4,22 +4,26 @@ import java.util.*;
 
 public class StringInputToIntegerOutputParser {
     private static String input;
-    private static final List<Integer> arguments = new ArrayList<>();
-    private static final Stack<Character> operands = new Stack<>();
-    private int result;
+    private static List<Integer> arguments;
+    private static Stack<Character> operands;
+    private final int mResult;
 
     public StringInputToIntegerOutputParser(String input){
-        StringInputToIntegerOutputParser.input = input;
+        this.input = input;
+        this.arguments = new ArrayList<>();
+        this.operands = new Stack<>();
+
         List<String> operators = new ArrayList<>(Arrays.asList("+", "-", "x", "/"));
         Random rand = new Random();
         String operator = operators.get(rand.nextInt(operators.size()));
         getArguments(operators, rand, operator);
 
         final int times = operands.size();
-        calculate(times);
+        mResult = calculate(times);
     }
 
-    private void calculate(int times) {
+    private Integer calculate(int times) {
+        Integer result = null;
         for (int i = 0; i < times; i++){
             Integer firstArgs;
             Integer secondArgs;
@@ -49,6 +53,8 @@ public class StringInputToIntegerOutputParser {
                 operands.remove(operands.indexOf('-'));
             }
         }
+
+        return result;
     }
 
     private void getArguments(List<String> operators, Random rand, String operator) {
@@ -108,6 +114,6 @@ public class StringInputToIntegerOutputParser {
 
     @Override
     public String toString() {
-        return Integer.toString(result);
+        return Integer.toString(mResult);
     }
 }

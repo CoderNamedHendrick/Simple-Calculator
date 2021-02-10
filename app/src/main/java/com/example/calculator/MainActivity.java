@@ -118,9 +118,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             input("8");
         else if (v == mNineButton)
             input("9");
-        else if (v == mAddButton) {
+        else if (v == mAddButton)
             input("+");
-        }
         else if (v == mSubButton)
             input("-");
         else if (v == mMultiplyButton)
