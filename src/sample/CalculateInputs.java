@@ -3,17 +3,14 @@ package sample;
 import java.util.*;
 
 public class CalculateInputs {
-    private static Integer firstArgs;
     private static String input;
-    private static Integer secondArgs;
-    private static List<Integer> arguments = new ArrayList<>();
-    private static Stack<Character> operands = new Stack<>();
-    private List<String> operators = new ArrayList<>();
+    private static final List<Integer> arguments = new ArrayList<>();
+    private static final Stack<Character> operands = new Stack<>();
     private int result;
 
     public CalculateInputs(String input){
-        this.input = new String(input);
-        operators.addAll(Arrays.asList(new String[]{"+", "-", "*", "/"}));
+        CalculateInputs.input = input;
+        List<String> operators = new ArrayList<>(Arrays.asList("+", "-", "*", "/"));
         Random rand = new Random();
         String operator = operators.get(rand.nextInt(operators.size()));
         getArguments(operators, rand, operator);
@@ -22,35 +19,36 @@ public class CalculateInputs {
         calculate(times);
     }
 
-    private int calculate(int times) {
+    private void calculate(int times) {
         for (int i = 0; i < times; i++){
+            Integer firstArgs;
+            Integer secondArgs;
             if (operands.contains('/')){
                 firstArgs = arguments.get(operands.indexOf('/'));
                 secondArgs = arguments.get(operands.indexOf('/') + 1);
-                result = firstArgs/secondArgs;
+                result = firstArgs / secondArgs;
                 arguments.set(operands.indexOf('/'), result); arguments.remove(operands.indexOf('/') + 1);
                 operands.remove(operands.indexOf('/'));
             } else if (operands.contains('*')){
                 firstArgs = arguments.get(operands.indexOf('*'));
                 secondArgs = arguments.get(operands.indexOf('*') + 1);
-                result = firstArgs*secondArgs;
+                result = firstArgs * secondArgs;
                 arguments.set(operands.indexOf('*'), result); arguments.remove(operands.indexOf('*') + 1);
                 operands.remove(operands.indexOf('*'));
             } else if (operands.firstElement() == '+'){
                 firstArgs = arguments.get(operands.indexOf('+'));
                 secondArgs = arguments.get(operands.indexOf('+') + 1);
-                result = firstArgs+secondArgs;
+                result = firstArgs + secondArgs;
                 arguments.set(operands.indexOf('+'), result); arguments.remove(operands.indexOf('+') + 1);
                 operands.remove(operands.indexOf('+'));
             } else if (operands.firstElement() == '-'){
                 firstArgs = arguments.get(operands.indexOf('-'));
                 secondArgs = arguments.get(operands.indexOf('-') + 1);
-                result = firstArgs-secondArgs;
+                result = firstArgs - secondArgs;
                 arguments.set(operands.indexOf('-'), result); arguments.remove(operands.indexOf('-') + 1);
                 operands.remove(operands.indexOf('-'));
             }
         }
-        return result;
     }
 
     private void getArguments(List<String> operators, Random rand, String operator) {
@@ -76,18 +74,18 @@ public class CalculateInputs {
     }
 
     private void getArguments(String input, String operand){
+        String initialExpression = input.substring(0, input.indexOf(operand));
         try {
-            arguments.add(Integer.parseInt(input.substring(0, input.indexOf(operand))));
+            arguments.add(Integer.parseInt(initialExpression));
         }catch (NumberFormatException e){
-            String worker = input.substring(0, input.indexOf(operand));
-            if (worker.contains("-")){
-                getArguments(worker, "-");
-            }else if (worker.contains("+")){
-                getArguments(worker, "+");
-            } else if (worker.contains("*")){
-                getArguments(worker, "*");
-            } else if (worker.contains("/")){
-                getArguments(worker,"/");
+            if (initialExpression.contains("-")){
+                getArguments(initialExpression, "-");
+            }else if (initialExpression.contains("+")){
+                getArguments(initialExpression, "+");
+            } else if (initialExpression.contains("*")){
+                getArguments(initialExpression, "*");
+            } else if (initialExpression.contains("/")){
+                getArguments(initialExpression,"/");
             }
         }
         input = input.substring(input.indexOf(operand)+1);
