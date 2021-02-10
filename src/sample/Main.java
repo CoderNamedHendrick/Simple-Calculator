@@ -15,7 +15,6 @@ public class Main{
 
     public static void main(String[] args) {
         restOfArgs = new String("75+5");
-        int length = restOfArgs.split("[-+*/]").length;
         arguments = new ArrayList<>();
         operands = new Stack<>();
         String[] operandss = {"+", "-", "*", "/"};
@@ -27,26 +26,7 @@ public class Main{
         String operator = operators.get(rand.nextInt(operators.size()));
         System.out.println(operator);
 
-        if (restOfArgs.contains(operator)) {
-        }
-        else {
-            operators.remove(operator);
-            operator = operators.get(rand.nextInt(operators.size()));
-            if (restOfArgs.contains(operator)) {
-            }
-            else {
-                operators.remove(operator);
-                operator = operators.get(rand.nextInt(operators.size()));
-                if (restOfArgs.contains(operator)) {
-                }
-                else {
-                    operators.remove(operator);
-                    operator = operators.get(rand.nextInt(operators.size()));
-                    System.out.println(operator);
-                }
-            }
-        }
-        getArguments(restOfArgs, operator);
+        getArguments(operators, rand, operator);
 
 
         System.out.println(arguments.toString());
@@ -92,11 +72,29 @@ public class Main{
 
     }
 
-    public static void PerformCalculations(Integer[] arguments, Stack<Character> operands){
-
+    private static void getArguments(List<String> operators, Random rand, String operator) {
+        if (restOfArgs.contains(operator)) {
+        }
+        else {
+            operators.remove(operator);
+            operator = operators.get(rand.nextInt(operators.size()));
+            if (restOfArgs.contains(operator)) {
+            }
+            else {
+                operators.remove(operator);
+                operator = operators.get(rand.nextInt(operators.size()));
+                if (restOfArgs.contains(operator)) {
+                }
+                else {
+                    operators.remove(operator);
+                    operator = operators.get(rand.nextInt(operators.size()));
+                }
+            }
+        }
+        getArguments(restOfArgs, operator);
     }
 
-    public static void getArguments(String input, String operand){
+    private static void getArguments(String input, String operand){
         try {
             arguments.add(Integer.parseInt(input.substring(0, input.indexOf(operand))));
         }catch (NumberFormatException e){
