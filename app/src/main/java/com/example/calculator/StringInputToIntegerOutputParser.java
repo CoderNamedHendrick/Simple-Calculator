@@ -2,15 +2,15 @@ package com.example.calculator;
 
 import java.util.*;
 
-public class CalculateInputs {
+public class StringInputToIntegerOutputParser {
     private static String input;
     private static final List<Integer> arguments = new ArrayList<>();
     private static final Stack<Character> operands = new Stack<>();
     private int result;
 
-    public CalculateInputs(String input){
-        CalculateInputs.input = input;
-        List<String> operators = new ArrayList<>(Arrays.asList("+", "-", "*", "/"));
+    public StringInputToIntegerOutputParser(String input){
+        StringInputToIntegerOutputParser.input = input;
+        List<String> operators = new ArrayList<>(Arrays.asList("+", "-", "x", "/"));
         Random rand = new Random();
         String operator = operators.get(rand.nextInt(operators.size()));
         getArguments(operators, rand, operator);
@@ -29,12 +29,12 @@ public class CalculateInputs {
                 result = firstArgs / secondArgs;
                 arguments.set(operands.indexOf('/'), result); arguments.remove(operands.indexOf('/') + 1);
                 operands.remove(operands.indexOf('/'));
-            } else if (operands.contains('*')){
-                firstArgs = arguments.get(operands.indexOf('*'));
-                secondArgs = arguments.get(operands.indexOf('*') + 1);
+            } else if (operands.contains('x')){
+                firstArgs = arguments.get(operands.indexOf('x'));
+                secondArgs = arguments.get(operands.indexOf('x') + 1);
                 result = firstArgs * secondArgs;
-                arguments.set(operands.indexOf('*'), result); arguments.remove(operands.indexOf('*') + 1);
-                operands.remove(operands.indexOf('*'));
+                arguments.set(operands.indexOf('x'), result); arguments.remove(operands.indexOf('x') + 1);
+                operands.remove(operands.indexOf('x'));
             } else if (operands.firstElement() == '+'){
                 firstArgs = arguments.get(operands.indexOf('+'));
                 secondArgs = arguments.get(operands.indexOf('+') + 1);
@@ -82,8 +82,8 @@ public class CalculateInputs {
                 getArguments(initialExpression, "-");
             }else if (initialExpression.contains("+")){
                 getArguments(initialExpression, "+");
-            } else if (initialExpression.contains("*")){
-                getArguments(initialExpression, "*");
+            } else if (initialExpression.contains("x")){
+                getArguments(initialExpression, "x");
             } else if (initialExpression.contains("/")){
                 getArguments(initialExpression,"/");
             }
@@ -98,8 +98,8 @@ public class CalculateInputs {
                 getArguments(input, "-");
             }else if (input.contains("+")){
                 getArguments(input, "+");
-            } else if (input.contains("*")){
-                getArguments(input, "*");
+            } else if (input.contains("x")){
+                getArguments(input, "x");
             } else if (input.contains("/")){
                 getArguments(input,"/");
             }

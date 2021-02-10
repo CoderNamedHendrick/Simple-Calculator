@@ -2,21 +2,12 @@ package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.example.calculator.Calculate.add;
-import static com.example.calculator.Calculate.divide;
-import static com.example.calculator.Calculate.multiply;
-import static com.example.calculator.Calculate.subtract;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mDivideButton;
     private Button mEqualsButton;
     private Button mDeleteButton;
-    private String mOperate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +120,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             input("9");
         else if (v == mAddButton) {
             input("+");
-            mResultTextView.setText(getInputString()
-                    .substring(0, getInputString().indexOf("+")));
         }
         else if (v == mSubButton)
             input("-");
@@ -140,21 +128,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if (v == mDivideButton)
             input("/");
         else if (v == mEqualsButton)
-            doCalculation();
+            doCalculation(getInputString());
         else if (v == mDeleteButton)
             deleteInput();
     }
 
-    private String getInputString() {
-        return mInputTextView.getText().toString();
+    private void doCalculation(String inputString) {
+
+        AsyncTask task = new AsyncTask() {
+            String result;
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                StringInputToIntegerOutputParser stringInputToIntegerOutputParser = new StringInputToIntegerOutputParser(inputString);
+                result = stringInputToIntegerOutputParser.toString();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                mResultTextView.setText(result);
+            }
+        };
+
+        task.execute();
     }
 
-    private void doCalculation() {
-        double result = 0;
-        String input = mInputTextView.getText().toString() + " ";
-
-
-        mResultTextView.setText(Double.toString(result));
+    private String getInputString() {
+        return mInputTextView.getText().toString();
     }
 
     private void deleteInput() {
