@@ -138,8 +138,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String result;
             @Override
             protected Object doInBackground(Object[] objects) {
-                StringInputToIntegerOutputParser stringInputToIntegerOutputParser = new StringInputToIntegerOutputParser(inputString);
-                result = stringInputToIntegerOutputParser.toString();
+                StringInputToFloatResultParser stringInputToFloatResultParser = new StringInputToFloatResultParser(inputString);
+                result = stringInputToFloatResultParser.toString();
                 return null;
             }
 

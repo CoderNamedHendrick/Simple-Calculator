@@ -2,16 +2,16 @@ package com.example.calculator;
 
 import java.util.*;
 
-public class StringInputToIntegerOutputParser {
-    private static List<Integer> arguments;
+public class StringInputToFloatResultParser {
+    private static List<Float> arguments;
     private static Stack<Character> operands;
-    private final int mResult;
+    private final float mResult;
     private String mOperator;
     private final Random mRand;
     private final List<String> mOperators;
 
-    public StringInputToIntegerOutputParser(String input){
-        this.arguments = new ArrayList<>();
+    public StringInputToFloatResultParser(String input){
+        this.arguments = new ArrayList<Float>();
         this.operands = new Stack<>();
 
         mOperators = new ArrayList<>(Arrays.asList("+", "-", "x", "/"));
@@ -20,14 +20,15 @@ public class StringInputToIntegerOutputParser {
         getArguments(input);
 
         final int times = operands.size();
-        mResult = calculate(times);
+        mResult = (float) calculate(times);
     }
 
-    private Integer calculate(int times) {
-        Integer result = null;
+    // Method to calculate the arguments which are placed the arguments ArrayList.
+    private Float calculate(int times) {
+        Float result = null;
         for (int i = 0; i < times; i++){
-            Integer firstArgs;
-            Integer secondArgs;
+            Float firstArgs;
+            Float secondArgs;
             if (operands.contains('/')){
                 firstArgs = arguments.get(operands.indexOf('/'));
                 secondArgs = arguments.get(operands.indexOf('/') + 1);
@@ -60,29 +61,30 @@ public class StringInputToIntegerOutputParser {
 
     private void getArguments(String input) {
         try{
-            Integer.parseInt(input);
+            Float.parseFloat(input);
             getArguments(input, null);
+            return;
         } catch (NumberFormatException e){
             if (input.contains(mOperator)) {
+                getArguments(input, mOperator);
+                return;
             }
             else {
                 mOperators.remove(mOperator);
                 mOperator = mOperators.get(mRand.nextInt(mOperators.size()));
                 getArguments(input);
             }
-            getArguments(input, mOperator);
-            return;
         }
     }
 
     private void getArguments(String input, String operand){
         if (operand == null){
-            arguments.add(Integer.parseInt(input));
+            arguments.add(Float.parseFloat(input));
             return;
         }
         String initialExpression = input.substring(0, input.indexOf(operand));
         try {
-            arguments.add(Integer.parseInt(initialExpression));
+            arguments.add(Float.parseFloat(initialExpression));
         }
         catch (NumberFormatException e){
             if (initialExpression.contains("-")){
@@ -102,6 +104,6 @@ public class StringInputToIntegerOutputParser {
 
     @Override
     public String toString() {
-        return Integer.toString(mResult);
+        return Float.toString(mResult);
     }
 }
