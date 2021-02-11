@@ -69,18 +69,6 @@ public class StringInputToIntegerOutputParser {
                 mOperators.remove(mOperator);
                 mOperator = mOperators.get(mRand.nextInt(mOperators.size()));
                 getArguments(input);
-//            if (input.contains(mOperator)) {
-//            }
-//            else {
-//                mOperators.remove(mOperator);
-//                mOperator = mOperators.get(mRand.nextInt(mOperators.size()));
-//                if (input.contains(mOperator)) {
-//                }
-//                else {
-//                    mOperators.remove(mOperator);
-//                    mOperator = mOperators.get(mRand.nextInt(mOperators.size()));
-//                }
-//            }
             }
             getArguments(input, mOperator);
             return;
@@ -110,19 +98,6 @@ public class StringInputToIntegerOutputParser {
         input = input.substring(input.indexOf(operand)+1);
         operands.push(operand.charAt(0));
         getArguments(input);
-//        try{
-//            arguments.add(Integer.parseInt(input));
-//        }
-//        catch (NumberFormatException e){
-//            if (input.contains("-")){
-//                getArguments(input, "-");
-//            }else if (input.contains("+")){
-//                getArguments(input, "+");
-//            } else if (input.contains("x")){
-//                getArguments(input, "x");
-//            } else if (input.contains("/")){
-//                getArguments(input,"/");
-//            }
     }
 
     @Override
