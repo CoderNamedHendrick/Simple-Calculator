@@ -3,20 +3,21 @@ package com.example.calculator;
 import java.util.*;
 
 public class StringInputToIntegerOutputParser {
-    private static String input;
     private static List<Integer> arguments;
     private static Stack<Character> operands;
     private final int mResult;
+    private String mOperator;
+    private final Random mRand;
+    private final List<String> mOperators;
 
     public StringInputToIntegerOutputParser(String input){
-        this.input = input;
         this.arguments = new ArrayList<>();
         this.operands = new Stack<>();
 
-        List<String> operators = new ArrayList<>(Arrays.asList("+", "-", "x", "/"));
-        Random rand = new Random();
-        String operator = operators.get(rand.nextInt(operators.size()));
-        getArguments(operators, rand, operator);
+        mOperators = new ArrayList<>(Arrays.asList("+", "-", "x", "/"));
+        mRand = new Random();
+        mOperator = mOperators.get(mRand.nextInt(mOperators.size()));
+        getArguments(input);
 
         final int times = operands.size();
         mResult = calculate(times);
@@ -57,29 +58,40 @@ public class StringInputToIntegerOutputParser {
         return result;
     }
 
-    private void getArguments(List<String> operators, Random rand, String operator) {
-        if (input.contains(operator)) {
-        }
-        else {
-            operators.remove(operator);
-            operator = operators.get(rand.nextInt(operators.size()));
-            if (input.contains(operator)) {
+    private void getArguments(String input) {
+        try{
+            Integer.parseInt(input);
+            getArguments(input, null);
+        } catch (NumberFormatException e){
+            if (input.contains(mOperator)) {
             }
             else {
-                operators.remove(operator);
-                operator = operators.get(rand.nextInt(operators.size()));
-                if (input.contains(operator)) {
-                }
-                else {
-                    operators.remove(operator);
-                    operator = operators.get(rand.nextInt(operators.size()));
-                }
+                mOperators.remove(mOperator);
+                mOperator = mOperators.get(mRand.nextInt(mOperators.size()));
+                getArguments(input);
+//            if (input.contains(mOperator)) {
+//            }
+//            else {
+//                mOperators.remove(mOperator);
+//                mOperator = mOperators.get(mRand.nextInt(mOperators.size()));
+//                if (input.contains(mOperator)) {
+//                }
+//                else {
+//                    mOperators.remove(mOperator);
+//                    mOperator = mOperators.get(mRand.nextInt(mOperators.size()));
+//                }
+//            }
             }
+            getArguments(input, mOperator);
+            return;
         }
-        getArguments(input, operator);
     }
 
     private void getArguments(String input, String operand){
+        if (operand == null){
+            arguments.add(Integer.parseInt(input));
+            return;
+        }
         String initialExpression = input.substring(0, input.indexOf(operand));
         try {
             arguments.add(Integer.parseInt(initialExpression));
@@ -97,21 +109,20 @@ public class StringInputToIntegerOutputParser {
         }
         input = input.substring(input.indexOf(operand)+1);
         operands.push(operand.charAt(0));
-        try{
-            Integer.parseInt(input);
-            arguments.add(Integer.parseInt(input));
-        }
-        catch (NumberFormatException e){
-            if (input.contains("-")){
-                getArguments(input, "-");
-            }else if (input.contains("+")){
-                getArguments(input, "+");
-            } else if (input.contains("x")){
-                getArguments(input, "x");
-            } else if (input.contains("/")){
-                getArguments(input,"/");
-            }
-        }
+        getArguments(input);
+//        try{
+//            arguments.add(Integer.parseInt(input));
+//        }
+//        catch (NumberFormatException e){
+//            if (input.contains("-")){
+//                getArguments(input, "-");
+//            }else if (input.contains("+")){
+//                getArguments(input, "+");
+//            } else if (input.contains("x")){
+//                getArguments(input, "x");
+//            } else if (input.contains("/")){
+//                getArguments(input,"/");
+//            }
     }
 
     @Override
